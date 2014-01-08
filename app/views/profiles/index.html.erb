@@ -1,0 +1,39 @@
+<div class="container">
+<h1>Listing profiles</h1>
+
+<table>
+  <tr>
+    <th>Research</th>
+    <th>Current students</th>
+    <th>Collaborators</th>
+    <th>Journals</th>
+    <th>Conferences</th>
+    <th>Books</th>
+    <th>Monogram</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @profiles.each do |profile| %>
+  <tr>
+    <td><%= profile.research %></td>
+    <td><%= profile.current_students %></td>
+    <td><%= profile.collaborators %></td>
+    <td><%= profile.journals %></td>
+    <td><%= profile.conferences %></td>
+    <td><%= profile.books %></td>
+    <td><%= profile.monogram %></td>
+    <td><%= profile.user_id %></td>
+    <td><%= link_to 'Show', profile %></td>
+    <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
+    <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Profile', new_profile_path %>
+</div>

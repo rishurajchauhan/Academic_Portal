@@ -1,0 +1,22 @@
+
+<%= form_for(current_user.relationships.build(followed_id: @user.id)) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <% if current_user.designation=="student" %>
+      
+      <div id="something" style="color: #0000FF; background-color:#ffffff; text-align: right; float: left">
+       
+       <%= f.radio_button :join_type, "Credit", :id => 'Credits' %> Credit 
+      
+      &nbsp;&nbsp; &nbsp;<br />&nbsp;&nbsp;<br />
+        
+       <%= f.radio_button :join_type, "Audit", :id => 'Audits' %>&nbsp;Audit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />  
+        
+        
+
+    </div>
+        
+    <% end %>
+    
+  <div><%= f.hidden_field :followed_id %></div>
+  <%= f.submit "Join Class", :class => "cnt" %>
+<% end %>

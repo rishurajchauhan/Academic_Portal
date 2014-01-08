@@ -1,0 +1,500 @@
+@import "bootstrap";
+
+/* universal */
+$grayMediumLight: #eaeaea;
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+#department{
+  background-color: black;
+}
+.table th{
+  border-top: none;
+  color: #242424;
+  font-size: 20px;
+  border-bottom: none;
+}
+.table td{
+  border-top: none;
+}
+#manipal{
+  background-image: url('ab.jpg') ;
+  background-repeat: none;
+  height: 500px;
+}
+#teachers{
+  
+  background-color: gray;
+}
+#teacher{
+  position: relative;
+  display: inline-block;
+  padding: 7px;
+}
+.hero-unit{
+  background-color: white;
+  font-family: Gothic;
+  color: orange;
+}
+
+.accordion-toggle{
+  color: #8B8682;
+  font-size: 22px;
+  background-color: #fff;
+
+  }
+
+.accordion{
+
+  a{
+  text-decoration: none;
+  }
+}
+b{
+  text-decoration: none;
+}
+a:hover {
+color : #334433;
+border-bottom-color : #334433;
+}
+
+.accordion-group{
+  border: 0.8px solid #fff;
+   background: #70bf32;
+    background: url('linear-gradient.png') 0 0 repeat-x;
+    background: -webkit-linear-gradient(#e3e3e3, #fff);
+    background: -moz-linear-gradient(#e3e3e3, #fff);
+    background: -ms-linear-gradient(#e3e3e3, #fff);
+    background: -o-linear-gradient(#e3e3e3, #fff);
+    background: linear-gradient(#e3e3e3, #fff);
+  
+  border-radius: 5px;
+  font-size: 15px;
+  color: #000;
+  font-family: Verdana,sans-serif;
+}
+
+.accordion-group1{
+  border: 0.8px solid #fff;
+  background-color:#fff;
+  border-radius: 5px;
+  font-size: 15px;
+  color: #000;
+  font-family: Verdana,sans-serif;
+}
+
+
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+.nw {
+  -moz-box-shadow:inset 0px 0px 0px -50px #bee2f9;
+  -webkit-box-shadow:inset 0px 0px 0px -50px #bee2f9;
+  box-shadow:inset 0px 0px 0px -50px #bee2f9;
+  background-color:#6fc8e8;
+  display:inline-block;
+  color:#14396a;
+  font-family:Trebuchet MS;
+  font-size:16px;
+  font-weight:normal;
+  padding:12px 27px;
+  text-decoration:none;
+  text-shadow:1px 0px 0px #7cacde;
+}.nw:hover {
+  background-color:#468ccf;
+}.nw:active {
+  position:relative;
+  top:1px;
+}
+
+.ab {
+  -moz-box-shadow:inset 0px 0px 0px -50px #fab3ad;
+  -webkit-box-shadow:inset 0px 0px 0px -50px #fab3ad;
+  box-shadow:inset 0px 0px 0px -50px #fab3ad;
+  background-color:#fa665a;
+  display:inline-block;
+  color:#ffffff;
+  font-family:Trebuchet MS;
+  font-size:16px;
+  font-weight:normal;
+  padding:12px 27px;
+  text-decoration:none;
+  text-shadow:1px 0px 0px #98231a;
+}.ab:hover {
+  background-color:#d34639;
+}.ab:active {
+  position:relative;
+  top:1px;
+}
+
+.cnt {
+  -moz-box-shadow:inset 0px 0px 0px -50px #fff6af;
+  -webkit-box-shadow:inset 0px 0px 0px -50px #fff6af;
+  box-shadow:inset 0px 0px 0px -50px #fff6af;
+  background-color:#ffec64;
+  display:inline-block;
+  color:#333333;
+
+  font-family:Trebuchet MS;
+  font-size:16px;
+  font-weight:normal;
+  padding:12px 27px;
+  text-decoration:none;
+  text-shadow:1px 0px 0px #ffee66;
+}.cnt:hover {
+  background-color:#ffab23;
+}.cnt:active {
+  position:relative;
+  top:1px;
+}
+
+body {
+  
+  background-color: white;
+}
+.container{
+  padding-top: 40px;
+  
+}
+
+section {
+  overflow: auto;
+
+}
+
+#clas{
+  background-color: #D0C6B1;
+
+}
+
+.lab{
+  font-family: Arial;
+  font-size: 20px;
+  
+  text-decoration: bold;
+  color: black;
+  padding-bottom: 10px;
+}
+
+.textarea {
+  resize: both;
+  height: 170px;
+  width: 350px;
+  color: black;
+  background-color: #fff;
+  font-family: Arial;
+  font-size: 15px;
+}
+
+.textarea1 {
+  resize: both;
+  width: 530px;
+  height: 200px;
+  color: black;
+  background-color: white;
+  font-family: Arial;
+  font-size: 15px;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: #999;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+/* header */
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: #ffcc66;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+#logo:hover {
+  color: #fff;
+  text-decoration: none;
+}
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #999;
+}
+
+footer a {
+  color: #555;
+}  
+
+footer a:hover { 
+  color: #222;
+}
+
+footer small {
+  float: left;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 10px;
+}
+/* forms */
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;
+}
+/* forms */
+
+#error_explanation {
+  color: #f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+ }
+ /* sidebar */
+
+aside {
+  height: 100%;
+  section {
+    padding: 10px 0;
+    border-top: 1px solid $grayLighter;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+    h1 {
+      font-size: 1.4em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 0px;
+    }
+  }
+}
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-top: 1px solid $grayLighter;
+    &:last-child {
+      border-bottom: 1px solid $grayLighter;
+    }
+  }
+}
+/* microposts */
+
+.microposts {
+  list-style: none;
+  margin: 10px 0 0 0;
+
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+}
+.content {
+  display: block;
+  word-wrap: break-word;
+}
+
+.timestamp {
+  color: $grayLight;
+}
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+aside {
+  textarea {
+    height: 100px;
+    margin-bottom: 5px;
+  }
+}
+.stats {
+  overflow: auto;
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $grayLighter;
+    color: gray;
+    
+      padding-left: 40px;
+      border: 0;
+    
+    &:hover {
+      text-decoration: none;
+      color: $blue;
+    }
+  }
+  strong {
+    display: block;
+  }
+}
+
+.user_avatars {
+  overflow: auto;
+  margin-top: 10px;
+  .gravatar {
+    margin: 1px 1px;
+  }
+}
+
+table{
+  border: 0px;
+  width: 100px;
+
+}
+
+table, td
+{
+text-align:center;
+}
+
+.separator {
+    text-align: center;
+    height: 0.7em;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 0.5em;
+
+}
+.separator:first-line {
+    background-color: white;
+}
+.separator:before {
+    content: "__";
+    color: white;
+}
+.separator:after {
+    content: "__";
+    color: white;
+}
+
+
+.WikispacesContent.WikispacesBs .row-fluid .span6 {
+    width: 48.7179%;
+}
+.WikispacesContent.WikispacesBs .row-fluid [class*="span"] {
+    -moz-box-sizing: border-box;
+    display: block;
+    float: left;
+    margin-left: 2.5641%;
+    min-height: 30px;
+    width: 100%;
+}
+.WikispacesContent.WikispacesBs .row-fluid .span6 {
+    width: 48.9362%;
+}
+.WikispacesContent.WikispacesBs .row-fluid [class*="span"] {
+    -moz-box-sizing: border-box;
+    display: block;
+    float: left;
+    margin-left: 2.12766%;
+    min-height: 30px;
+    width: 100%;
+}
+.WikispacesContent.WikispacesBs .span6 {
+    width: 570px;
+}
+.WikispacesContent.WikispacesBs [class*="span"] {
+    float: left;
+    margin-left: 30px;
+    min-height: 1px;
+}
+.WikispacesContent.WikispacesBs .span6 {
+    width: 460px;
+}
+.WikispacesContent.WikispacesBs [class*="span"] {
+    float: left;
+    margin-left: 20px;
+    min-height: 1px;
+}
+.WikispacesContent {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+}
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+

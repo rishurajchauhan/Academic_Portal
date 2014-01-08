@@ -1,0 +1,67 @@
+<% if signed_in? %>
+<a href="<%= user_path(current_user) %>">
+  <% if current_user.designation=="student" %>
+  <%= render 'users/student' %>
+  
+  <% else %>
+  <%= render 'users/show' %>
+   
+   
+
+  <% end %>
+<% else %>
+  <div class="center hero-unit">
+    <%= link_to image_tag("manipal.png", alt: "Rails"), 'http://www.manipal.edu' %>
+    <br />
+    <br />
+    <span style="font-size: 50px;">Welcome to the ITSpace </span>
+<!--
+    <div class="span6">
+    <div class="carousel slide" id="js-carousel">
+      <div class="carousel-inner">
+        <div class="active item">
+          <img width="600" height="500" class="ws-responsive" src="http://www.shadygrove.umd.edu/sites/default/files/USG_Assets/Images/Campus/teacher-cartoon.jpg">
+          <div class="carousel-caption">
+            <h4>Collaborative Writing</h4>
+            <p></p>
+          </div>
+        </div>
+        <div class="item">
+          <img width="600" height="500" class="ws-responsive" src="http://c1.wikicdn.com/i/edu-stream-2.png">
+          <div class="carousel-caption">
+            <h4>Social Writing</h4>
+            <p></p>
+          </div>
+        </div>
+        <div class="item">
+          <img width="600" height="500" class="ws-responsive" src="http://c1.wikicdn.com/i/edu-assess-2.png">
+          <div class="carousel-caption">
+            <h4>Formative Assessment</h4>
+            <p></p>
+          </div>
+        </div>
+        <div class="item">
+          <img width="600" height="500" class="ws-responsive" src="http://c1.wikicdn.com/i/edu-projects-2.png">
+          <div class="carousel-caption">
+            <h4>Classroom Management</h4>
+            <p></p>
+          </div>
+        </div>
+      </div>
+      <a data-slide="prev" href="#js-carousel" class="left carousel-control">‹</a>
+      <a data-slide="next" href="#js-carousel" class="right carousel-control">›</a>
+    </div>
+  </div>
+-->
+    <br />
+    <br />
+    <h2 style ="font-family: Arial;">
+      This is the home page for the I&CT Department Portal
+    </h2>
+    <div style="padding-top: 8px;"></div>
+    <br />
+    <%= link_to "Sign up now!", signup_path, 
+                                class: "btn btn-large btn-success" %>
+  </div>
+
+<% end %> 

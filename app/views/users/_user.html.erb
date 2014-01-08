@@ -1,0 +1,9 @@
+<li>
+  <img src="<%= user.img %>" style = "height : 30px; width: 40px;align: center; padding-left: 10px" alt="Pic"/>
+  <%= link_to user.name, user %> &nbsp; &nbsp; &nbsp; &nbsp; <%= user.email %>
+  <% if current_user.admin? && !current_user?(user) %>
+    | <%= link_to "delete", user, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+  <% end %>
+  
+</li>

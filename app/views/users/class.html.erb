@@ -1,0 +1,349 @@
+<head>
+  <style type="text/css">
+  .highlight {
+  background-color: #fff34d;
+  -moz-border-radius: 5px; /* FF1+ */
+  -webkit-border-radius: 5px; /* Saf3-4 */
+  border-radius: 5px; /* Opera 10.5, IE 9, Saf5, Chrome */
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); /* FF3.5+ */
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); /* Saf3.0+, Chrome */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); /* Opera 10.5+, IE 9.0 */
+  }
+   
+  .highlight {
+  padding:1px 4px;
+  margin:0 -4px;
+  }
+  </style>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script type="text/javascript">
+  /*
+   
+  highlight v3 !! Modified by Jon Raasch (http://jonraasch.com) to fix IE6 bug !!
+   
+  Highlights arbitrary terms.
+   
+  <http://johannburkard.de/blog/programming/javascript/highlight-javascript-text-higlighting-jquery-plugin.html>
+   
+  MIT license.
+   
+  Johann Burkard
+  <http://johannburkard.de>
+  <mailto:jb@eaio.com>
+   
+  */
+   
+  jQuery.fn.highlight = function(pat) {
+  function innerHighlight(node, pat) {
+  var skip = 0;
+  if (node.nodeType == 3) {
+  var pos = node.data.toUpperCase().indexOf(pat);
+  if (pos >= 0) {
+  var spannode = document.createElement('span');
+  spannode.className = 'highlight';
+  var middlebit = node.splitText(pos);
+  var endbit = middlebit.splitText(pat.length);
+  var middleclone = middlebit.cloneNode(true);
+  spannode.appendChild(middleclone);
+  middlebit.parentNode.replaceChild(spannode, middlebit);
+  skip = 1;
+  }
+  }
+  else if (node.nodeType == 1 && node.childNodes && !/(script|style)/i.test(node.tagName)) {
+  for (var i = 0; i < node.childNodes.length; ++i) {
+  i += innerHighlight(node.childNodes[i], pat);
+  }
+  }
+  return skip;
+  }
+  return this.each(function() {
+  innerHighlight(this, pat.toUpperCase());
+  });
+  };
+   
+  jQuery.fn.removeHighlight = function() {
+  function newNormalize(node) {
+  for (var i = 0, children = node.childNodes, nodeCount = children.length; i < nodeCount; i++) {
+  var child = children[i];
+  if (child.nodeType == 1) {
+  newNormalize(child);
+  continue;
+  }
+  if (child.nodeType != 3) { continue; }
+  var next = child.nextSibling;
+  if (next == null || next.nodeType != 3) { continue; }
+  var combined_text = child.nodeValue + next.nodeValue;
+  new_node = node.ownerDocument.createTextNode(combined_text);
+  node.insertBefore(new_node, child);
+  node.removeChild(child);
+  node.removeChild(next);
+  i--;
+  nodeCount--;
+  }
+  }
+   
+  return this.find("span.highlight").each(function() {
+  var thisParent = this.parentNode;
+  thisParent.replaceChild(this.firstChild, this);
+  newNormalize(thisParent);
+  }).end();
+  };
+  </script>
+  <script type="text/javascript">
+  $(function() {
+  $('#text-search').bind('keyup change', function(ev) {
+  // pull in the new value
+  var searchTerm = $(this).val();
+   
+  // remove any old highlighted terms
+  $('#remove-this').removeHighlight();
+  $('body').removeHighlight();
+
+
+   
+  // disable highlighting if empty
+  if ( searchTerm ) {
+  // highlight the new term
+  $('#search-this2').highlight( searchTerm );
+  }
+  });
+  });
+  </script>
+</head>
+
+<body>
+<div class="row" style="padding-left:30px; background-color: #e7e5e5; padding-top: 10px; " >
+  <div class="span4" style="padding-left: 10px; background-color: #ffffff; width: 285px; border-radius: 3px">
+    <br />
+    <div style="padding-left: 20px; padding-bottom: 20px; width: 200px">
+      <% if @user.img!="" %>
+      <img src="<%= @user.img %>" style = "height : 120px; width: 130px;align: center; padding-left: 50px"/>
+      <% else %>
+      <img src="http://www.lawgazette.co.uk/files/images/classroom-cartoon.jpg" style = "height : 120px; width: 130px;align: center; padding-left: 50px"/>
+      <% end %>
+    </div>
+    <h4 style="padding-left: 25px; font-family: Verdana, sans-serif; color: gray; font-weight: bold">Teachers</h4>
+    <table class="table">
+      <% for user in @user.followers.all.each do %>
+      <% if user.designation=="teacher" %>
+      <% @profile=user.profile %>
+      <% @text=@profile.subjects.split(/\r?\n/) %>
+      <% for i in 0..@text.length-1 %>
+          <% @class=@text[i].split(',')[1] %>
+          <% @subj=@text[i].split(',')[0] %>
+          <% if @class==@user.name %>
+            <% subject=@subj %>
+          <% end %>
+      <% end %>
+      <tr><td><img src="<%= user.img %>" style="padding-left: 20px; height: 30px; width: 40px;">&nbsp;&nbsp;<%= link_to user.name, user %></td><td style="padding-top: 10px; color: #BF0D55"><b><%= subject %></b>
+      </td></tr> 
+      <% end %>
+      <% end %>
+    </table>
+    <br />
+    <div style="padding-left:10px">
+            <hr style="border-bottom: 1px solid lightgray; width: 260px"/>
+    </div>
+
+    <h4 style="padding-left:25px; font-family: Verdana, sans-serif; color: gray; font-weight: bold">Students</h4>
+    <table class="table table-striped">
+      <% for user in @user.followers.all.each do %>
+        <% if user.designation=="student" %>
+          <tr><td><img src="<%= user.img %>" style="padding-left: 20px; height: 30px; width: 40px;">&nbsp;&nbsp;<%= link_to user.name, user %>
+          </td></tr> 
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+
+  <div class="span8" id="search-this1" style="background-color: #ffffff; width: 655px; padding-top: 5px; border-radius: 3px">
+    <!-- border-left&#58;1px solid lightgray; margin-left&#58;16px; &#35; -->
+    <center style="padding-top: 0px">
+      <div style="text-align: left; height: 1px; padding-left: 30px; padding-top: 30px; background-color: #ffffff">
+        <span style="color: black; font-size: 22px; font-family: Verdana, sans-serif; font-weight: bold">
+         CLASS&nbsp;<%= @user.name %> &nbsp; 
+        </span>
+          
+         <div style="text-align:left; padding: 15px 0px 0px 0px">
+        Welcome to Class <%= @user.name %> at MIT, Manipal.<br />
+        
+        <br />
+          </div> 
+      </div>  
+      <div style="text-align: right; padding-left: 410px; padding-right: 10px; background-color: #ffffff">
+        <%= render 'follow_form' if (signed_in? && !current_user.admin? ) %></div>
+        <div style="width:230px; padding-left:390px">
+
+        Search: <input type="text" id="text-search" />
+        </div>
+    </center>
+    
+    <% if current_user.admin? && !current_user?(user) %>
+      <div style="padding-left: 410px; padding-bottom:10px">  <%= link_to "Delete Class", user, method: :delete,
+                                    data: { confirm: "You sure?" }, :class => "ab" %>
+      </div>
+    <% end %>
+     <br />
+     <div class="separator">
+       <span style="color: gray; font-weight: bold; font-size:12px">RECENT POSTS</span>
+     </div>
+
+     <br />
+
+    <% if current_user.following?(@user) or current_user.admin? %>
+      <% for user in @user.followers.all.each do %>
+        <% if user.microposts.any? %>
+          <% for post in user.microposts %>
+            <% if post.group_id==@user.id %>
+              <% @arr.push(post.id)%>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% @arr.sort! %>
+      <% @arr.reverse! %>
+      <div id="search-this2">
+      <% @arr.each do|m| %>
+
+        <%  for post in Micropost.all %>
+          <% if post.id==m %>
+              <div style="height: 30px; text-align:top; padding-left: 10px" id="remove-this">
+                <h4><img src="<%= post.user.img %>" style="height: 35px; width: 45px;">&nbsp;&nbsp;<%= link_to post.user.name, post.user %>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <% if post.tyype=="Assignment" %>
+                    <span style="text-align:right; font-size:15px; color: red">Assignment</span>
+
+                  <% end %></h4>
+              </div>
+              
+              <div style="padding-left:70px" id="search-this">
+                
+                <span class="content" style="padding-right:10px; font-size:13px"><%= markdown(post.content) %>
+
+                </span>
+                <% if post.attach.exists? %>
+                  <a href="<%= post.attach.url %>">
+                  <b><%= post.attach_file_name %></b></a>
+                  <br />
+                <% end %>
+                
+       
+                <span class="timestamp">
+                Posted <%= time_ago_in_words(post.created_at) %> ago.
+                </span>
+
+
+                <% if current_user?(post.user) %>
+                  <%= link_to "delete", post, method: :delete,
+                                           data: { confirm: "You sure?" },
+                                           title: post.content %>
+                <% end %>
+                
+              </div>
+              <div style="padding-left:10px">
+                <hr style="border-bottom: 2px lightgray; width: 635px; align:center"/>
+              </div>
+
+          <% end %>
+        <% end %>
+    
+      <% end %>
+    </div>
+  
+  </div>
+
+  <div class="span4" style="padding-left: 10px;background-color: #ffffff; width: 230px; height: 600px; border-radius: 3px" >
+    <h4 style="color:gray">Assignments</h4>
+    <table class="table">
+      <tr>
+        <th id="as" style="font-size:14px">Faculty</th>
+        <th id="as" style="font-size:14px">Deadline</th>
+      </tr>
+    <% @arr.each do |m| %>
+    <% for post in Micropost.all %>
+      <% if post.id == m %>
+        <% if post.tyype=="Assignment" %>
+          
+            <tr>
+              <td><%= post.user.name %></td>
+              <td><strong><span style="color: brown"><%= (Date.parse(post.deadline)).strftime("%a,%d %b %y") %><br /><small>(<%= ((Date.parse(post.deadline)).strftime("%j")).to_i - (Date.parse(post.created_at.to_s)).strftime("%j").to_i %> days remaining)</small></span></strong></td>
+            </tr>
+
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+    </table>
+    <!-- border-left&#58;1px solid lightgray; margin-left&#58;16px; &#35; -->
+    <br />
+    <b>Click below to visit the google group for <%= @user.name %></b>
+    <br />
+    <div style="padding-top:12px">
+      <% if @user.group_url!=nil %>
+        
+          <div style="padding-top:0px">
+            <a href="<%= @user.group_url %>" target= "_blank" class="cnt" style="text-decoration:none"> Discussion Forum</a>
+          </div>
+
+        
+      <% else %>
+        <div style="text-align:center;border: 2px lightgray;border-radius:2px;background-color: white;color:red;height: 45px; width: 200px" onmouseover="this.style.background='#e7e7e7';" onmouseout="this.style.background='white';">
+        This class does not has a google group yet.
+        </div>
+      <% end %>
+    </div>
+    <div style="padding-left:0px">
+          <hr style="border-bottom: 1px solid lightgray; width: 220px"/>
+    </div>
+
+    <table style="border-collapse:collapse; width:227px; ">
+            <thead>
+                <tr>
+                   <th style="color:gray;padding-left:0px;text-align:center">Files uploaded</th>
+               </tr>
+               <tr style="border-bottom:0px solid black;">
+                   <th style="padding:5px; text-align:left"><em>Attatched files</em></th>
+                   <th style="padding:0px 0px 0px 10px"><em>By User</em></th>
+               </tr>
+            </thead>
+            <tbody>
+              <% @f = 0 %>
+              <% @arr.each do|m| %>
+                  <%  for post in Micropost.all %>
+                    <% if post.id==m %>
+                          <% if post.attach.exists? %>
+
+                                <% @f+=1 %>
+                                   <tr>
+                                     <td style="padding:5px;text-align:left"><a href="<%= post.attach.url %>">
+
+                                       <%= post.attach_file_name %></a></td>
+
+                                     <td style="padding:5px"><%= post.user.name %></td>    
+                                  </tr>
+                          <% end %>
+                    <% end %>
+                  <% end %>
+              <% end %>
+              <% if @f==0%>
+                              <tr>
+                              <td style="padding:5px;text-align:left"> No files have been uploaded</td>
+              <% end %>
+            </tbody>
+    </table>
+  </div>
+    <% end %>
+  
+
+
+</div>
+</div>
+</div>
+</body>
+<script>
+$(document).ready(function(){
+  $('body').css('background-color', '#e7e5e5');
+});
+</script>

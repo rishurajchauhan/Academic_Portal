@@ -1,0 +1,96 @@
+<% provide(:title, 'Department Home') %>
+
+	<div id="manipal">
+		<br /><br /><br />
+		<div class="container" style=" -khtml-opacity:.50; 
+ -moz-opacity:.50; 
+ -ms-filter:”alpha(opacity=50)”;
+  filter:alpha(opacity=50);
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);
+  opacity:.50;
+  background-color: black; 
+  
+  height: 200px;
+  width: 690px;
+  padding-left: 100px;
+   ">
+<div style="color: #D0C6B1; font-size: 46px;  font-family: Verdana, sans-serif; align: center">Information<br /><br /><br /> &<br /><br /><br />Communication Technology</div></div>
+<img src="/assets/mit.png" style="height: 170px; width: 130px; padding-left: 150px" />
+</div>
+
+
+<br />
+
+<div id="department">
+<p style="font-size: 30px; font-family: Verdana, sans-serif; padding-left: 200px; color: #336699;">Faculty</p>
+<div style="padding-left: 200px;">
+<div id="teachers">
+         <% for usr in User.all do %>
+        
+			<% if usr.designation=="teacher" %>
+			<div id="teacher">	
+				<% if usr.img != nil %>
+				<img src= <%= usr.img %> style="height: 100px; width: 100px;"/>
+				<% end %>
+				<%= link_to usr.name, user_path(usr), :style => "color: black; text-decoration: none;" %>
+			</div>
+			<% end %>
+
+			<% end %>
+ </div>    
+</div>
+<h1>Academia</h1>
+<% acad={} %>
+  <% for user in User.all %>
+  <% if user.designation=="teacher" %>
+  <% @profile=user.profile %>
+  <% @text=@profile.subjects.split(/\r?\n/) %>
+    <% for i in 0..@text.length-1 %>
+      <% @subj=@text[i].split(',')[0] %>
+      <% @sem=@text[i].split(',')[1][0] %>
+      <% @teachers=[] %>
+      <% for usr in User.all %>
+        <% if usr.designation=="teacher" %>
+          <% @pro=usr.profile %>
+          <% @sub=@pro.subjects.split(/\r?\n/) %>
+          <% for @s in @sub %>
+          <% if @s.include?(@subj) && @s.include?(@sem) %>
+            <% @teachers.push(usr.name+"<br />") %>
+            
+        <% end %>
+        <% end %>
+      <% end %>
+      <% end %>
+      <% @teachers=@teachers.join %>
+      <% acad[@subj+":"+@sem]=@teachers %>
+    <% end %>
+    <% end %>
+    <% end %>
+  
+<div style="padding-left: 300px">
+<table class="table">
+  <tr>
+    <th>Course Name</th>
+    <th>Semester</th>
+    <th>Faculty Teaching</th>
+  </th>
+  <% for key in acad.keys %>
+  <tr>
+    <td style="color: #D9D8BA; font-size: 16px"><%= key.split(':')[0] %></td>
+    <td style="color: #D9D8BA; font-size: 16px"><%= key.split(':')[1] %></td>
+    <td style="color: #D9D8BA; font-size: 16px"><%= markdown acad[key] %></td>
+  </tr>
+  <% end %>
+  </table>
+</div>
+</div>
+
+  
+  
+  
+
+<script>
+$(document).ready(function(){
+	$('body').css('background-color','black');
+});
+</script>

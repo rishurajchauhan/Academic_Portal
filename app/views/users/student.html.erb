@@ -1,0 +1,20 @@
+<div class="container">
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="span4" style="background-color: #000000; width: 30%;">
+    <div style="padding-bottom: 30px">
+    <section>
+      <h1>
+        <span style="padding: 5px"><%= markdown ("<img src="+@user.img+" />") %></span>
+        <span style="color: #FF660F; font-size: 35px; font-family: Trebuchet MS, serif; text-align: left; padding-top: 27px; padding-left: 15px; color: #CCCCCC;"><%= @user.name %></span>
+      </h1>
+    </div>
+    </section>
+    <section>
+      <%= render 'shared/stats' %>
+    </section>
+  </aside>
+ 
+ 
+</div>
+</div>

@@ -1,0 +1,31 @@
+<body style="background-color: #ffffff">
+<div class="container">
+<a href="<%= user_path(current_user) %>">
+<% provide(:title, current_user.name) %>
+<div class="row">
+  <aside class="span4" style="background-color: #000000; ">
+    <div style="padding-bottom: 30px">
+    <section>
+      <h1>
+        <span style="padding: 5px"><img src= <%= current_user.img %> /></span>
+        <span style="color: #FF660F; font-size: 35px; font-family: Trebuchet MS, serif; text-align: left; padding-top: 27px; padding-left: 15px; color: #CCCCCC;"><%= current_user.name %></span>
+      </h1>
+    </section>
+    </div>
+    <section>
+      <%= render 'shared/stats' %>
+    </section>
+     
+  </aside>
+  <aside class="span7">
+  <div class="profile">
+    <%= render '/profiles/show1' %>
+  </div>
+  <%= link_to 'Edit Info', edit_profile_path(current_user.profile), :style => "text-decoration: none" %>
+  
+  <section>
+    <%= render 'shared/micropost_form1' %>
+  </section>
+</aside>
+  </div>
+</div></body>

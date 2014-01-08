@@ -1,0 +1,98 @@
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+
+<script>
+
+$(document).ready(function(){
+  $('textarea').focus(function(){
+    $(this).css('box-shadow', '0 0 10px lightblue');
+    $( "[title]" ).tooltip();
+    $(this).css('background-color','#ffffff');
+  });
+  $('textarea').focusout(function(){
+    $(this).css('box-shadow', '0 0 0px');
+    $(this).css('background-color', '#f9f9f9');
+  });
+
+});
+</script>
+</head>
+<div class="container" style="background-color: #f9f9f9; ">
+
+<%= form_for(@profile, :html=> {:multipart => true}) do |f| %>
+  <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+      <% @profile.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table>
+    <tr>
+      <td style="padding-left: 45px; padding-top: 0px">
+    <%= f.label :research, class: "lab" %>
+    <%= f.text_area :research, class: "textarea", :title => "<Field>\n<Link>\n\n For example: \n Machine Learning\n www.google.com\n\nNetworks\nwww.yahoo.com" %>
+  </td>
+  <td style="padding-left: 150px; padding-top: 0px">
+    <%= f.label :current_students, class: "lab" %>
+    <%= f.text_area :current_students, class: "textarea", :title => "Please enter new name in new line." %>
+  </td>
+</tr>
+<tr>
+    <td style="padding-left: 45px;">
+    <%= f.label :collaborators, class: "lab" %>
+    <%= f.text_area :collaborators, class: "textarea", :title => "Please enter new name in new line." %>
+  </td>
+  <td style="padding-left: 150px;">
+    <%= f.label :journals, class: "lab" %>
+    <%= f.text_area :journals, class: "textarea" %>
+  </td>
+</tr>
+<tr>
+  <td style="padding-left: 45px;">
+    <%= f.label :conferences, class: "lab" %>
+    <%= f.text_area :conferences, class: "textarea" %>
+  </td>
+  <td style="padding-left: 150px;">
+    <%= f.label :books, class: "lab" %>
+    <%= f.text_area :books, class: "textarea" %>
+  </td>
+</tr>
+  <tr>
+    <td style="padding-left: 45px;">
+    <%= f.label :monogram, class: "lab" %>
+    <%= f.text_area :monogram, class: "textarea" %>
+  </td>
+  <td style="padding-left: 150px;">
+    <%= f.label :subjects, class: "lab" %>
+    <%= f.text_area :subjects, class: "textarea" %>
+  </td>
+</tr>
+  </table>
+  <br />
+  <br />
+  <div class="separator">
+     <span style="color: gray; font-weight: bold; font-size:20px">Personal Info</span>
+   </div>
+   <div style="padding-top:20px">
+  <table class="table">
+    <tr>
+      <td style="padding-left: 100px; padding-top: 20px"><b>Phone: </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= f.text_field :ph, class: "input-medium" %></td>
+      <td style="padding-top: 20px; padding-left: 120px"><b>Cabin: </b>&nbsp;&nbsp;<%= f.text_field :cabin, class: "input-small" %></td>
+    </tr>
+    <tr>
+      <td style="padding-left: 100px;"><b>Designation: </b>&nbsp;&nbsp;<%= f.text_field :post, class: "input-medium" %></td>
+    </tr>
+  </table>
+    <span style="padding-left: 420px"><%= f.submit 'Update', class: "btn btn-large btn-success" %></span>
+  </div>
+<% end %>

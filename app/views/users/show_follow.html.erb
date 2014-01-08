@@ -1,0 +1,24 @@
+<body style="background-color: #ffffff">
+<div class="container">
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= markdown("<img src= "+@user.img+" />") %>
+      <h1><%= @user.name %></h1>
+      <span><%= link_to "view my profile", @user %></span>
+    </section>
+   
+  </aside>
+  <div class="span8">
+    <h1 style="color: #242424">Teaching In</h1>
+    <% if @users.any? %>
+      <ul class="users">
+        <%= render @users %>
+      </ul>
+      <%= will_paginate %>
+    <% end %>
+  </div>
+</div>
+</div>
+</body>

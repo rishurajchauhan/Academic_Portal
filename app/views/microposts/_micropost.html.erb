@@ -1,0 +1,24 @@
+  <div style="height: 30px; text-align:top">
+    <h4>
+    <img src="<%= user.img %>" style="height: 40px; width: 50px;">&nbsp;&nbsp;<%= link_to post.user.name, post.user %>
+  </h4>
+  </div>
+  <div style="padding-left:60px">
+ 
+  <span class="content"><%= post.content %></span>
+   <% if post.attach.exists? %>
+  <a href="<%= post.attach.url %>">
+    <b><%= post.attach_file_name %></b></a>
+    <br />
+  <% end %>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(post.created_at) %> ago.
+  </span>
+  <% if current_user?(post.user) %>
+    <%= link_to "delete", post, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: post.content %>
+  <% end %>
+</div>
+  <hr style="border-bottom: 1px solid lightgray;"/>
+  

@@ -1,0 +1,13 @@
+<% @user ||= current_user %>
+<div class="stats">
+  
+  <a href="<%= following_user_path(@user) %>">
+    <strong id="following" class="stat">
+    	<% if @user.designation=="teacher" %>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Teaching &nbsp;<%= @user.followed_users.count %> &nbsp;Classes
+      <% else %>
+      Attending &nbsp;<%= @user.followed_users.count %> &nbsp;Classes
+      <% end %>
+    </strong>
+  </a>
+</div>

@@ -1,0 +1,49 @@
+<body style="background-color: #ffffff; padding-top:20px">
+
+<div class="container" style="background-color:#ffffff;padding-top:0px; padding-left:20px">
+	<h2 style="padding: 0px 0px 0px 0px; color: #CCCCCC; background-color: black">Welcome To The Research Portal</h2>
+	<br />
+	<div style="padding-left:140px; background-color: white">
+	<table class="table">
+	<tr>	
+		<th style="padding-left:30px; text-decoration:underline">Faculty Name</th>
+		<th style="padding-left:30px; text-decoration:underline">Research Details</th>
+	</tr>
+	<% for usr in User.all %>
+	<% if usr.designation=="teacher" %>
+	<% @profile=usr.profile %>
+	<% @text=@profile.research.split(/\r?\n/) %>
+    <% @text=@text.delete_if{|x| x==''} %>
+    <% @books=[] %>
+    <% for j in 0..((@text.length/2)-1) %>
+        <% @books[j]=@text.slice!(0..1) %>
+    <% end %>
+      <% @books1=[] %>
+    <% for j in @books %>
+        <% j[0]="<br /><b style='color: black; font-size: 16px'>Field: </b> "+"<span style='font-size: 15px; color: #000'>"+j[0]+"</span><br />" %>
+        <% j[1]="<b style='color: black; font-size: 16px'>Link: </b> "+"<span style='font-size: 15px'>"+j[1]+"</span><br />" %>
+        <% @books1.push(j.flatten) %>
+    <% end %>
+    <% @profile.research=@books1.join %>
+    <div class="container1" >
+	<tr><ul>
+
+		<td style="padding:35px 0px 0px 50px;"><li>
+
+			<%= link_to usr.name, usr, :style => "font-size: 17px; font-family: Arial; text-decoration: none; color: #E06A1B" %>
+			
+
+		</li>
+
+	</td></ul>
+		<td style="padding:0px 0px 0px 40px;"><%= markdown(@profile.research) %></td></div>
+
+	<% end %>
+
+
+	<% end %>
+	
+</table>
+</div>
+</div>
+</body>

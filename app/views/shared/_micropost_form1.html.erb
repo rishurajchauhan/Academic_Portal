@@ -1,0 +1,74 @@
+<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+ <script type="text/javascript">
+        bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+  </script>
+ 
+  <script>
+  
+  $(document).ready(function(){
+    $("#datepicker").datepicker();
+    $("#dead").css("display","none");
+    $(".field").css("display","none");
+    $("#classes").css("display","none");
+    $("#attach").css("display","none");
+    $("#gen").change(function(){
+      $(".field").slideDown("slow");
+      $("#attach").slideDown("slow");
+      $("#classes").slideDown("slow");
+      $("#dead").slideUp("slow");
+    });
+    $("#asn").change(function(){
+      $(".field").slideDown("slow");
+      $("#attach").slideDown("slow");
+      $("#dead").slideDown("slow");
+      $("#classes").slideDown("slow");
+      $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+    });
+    $("#pol").change(function(){
+      $(".field").slideUp("slow");
+      $("#dead").slideUp("slow");
+      $("#attach").slideUp("slow");
+    });
+  }); 
+  </script>
+<%= form_for(current_user.microposts.new, html: { multipart: true }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div style="background-color: #f3f3f3">
+  <span style="font-size: 27px; font-family: Verdana; color: #2466A8; padding: 7px">Kindly choose the kind of post... </span>
+  <br />
+  <div style="padding-left: 7px">
+  <%= f.radio_button :tyype, "Assignment", :id => 'asn' %> Assignment
+  &nbsp;&nbsp;<%= f.radio_button :tyype, "General", :id => 'gen' %> General
+  &nbsp;&nbsp;<%= f.radio_button :tyype, "Poll", :id => 'pol' %> Poll
+  </div>
+  <div class="field" style="padding-top: 7px;">
+    <%= f.text_area :content, class: "textarea1" %>
+  </div>
+  <div id="attach">
+  <p>Attachment<br />
+    <%= f.file_field :attach %>
+  </p>
+</div>
+  <div id="dead" style="padding: 7px">
+    <h3>Choose a deadline</h3>
+  <%= f.text_field :deadline, :id => 'datepicker', class: "input-medium" %>
+</div>
+  <div id="classes" style="padding: 7px">
+  <% if current_user.followed_users.count!=0 %>
+  <hr />
+  <h3>Choose a class to post</h3>
+  
+    <% for usr in current_user.followed_users %>
+  <%= f.radio_button :group_id, usr.id %><%= usr.name %>&nbsp;&nbsp;&nbsp;
+  <% end %>
+  <% end %>
+
+  <br />
+  <div style="padding-top:20px; padding-left: 80px">
+  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+</div>
+</div>
+<% end %>
+
